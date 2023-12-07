@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
 
 const TopStories = () => {
   const [error, setError] = useState(null);
@@ -6,10 +8,9 @@ const TopStories = () => {
   const [topStories, setTopStories] = useState([]);
 
   useEffect(() => {
-    fetch(`https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${process.env.REACT_APP_API_KEY}`)
-      .then(response => response.json())
-      .then((jsonifiedResponse) => {
-        setTopStories(jsonifiedResponse.results)
+    axios.get(`https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${process.env.REACT_APP_API_KEY}`)
+      .then((response) => {
+        setTopStories(response.data.results)
         setIsLoaded(true)
       })
       .catch((error) => {
