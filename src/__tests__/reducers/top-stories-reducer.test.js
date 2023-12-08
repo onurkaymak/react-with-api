@@ -34,4 +34,20 @@ describe('topStoriesReducer', () => {
     });
   });
 
+  test('#3 Failing to get topStories should change isLoaded to true and add an error message', () => {
+
+    const error = "An error";
+
+    action = {
+      type: c.GET_TOP_STORIES_FAILURE,
+      error
+    };
+
+    expect(topStoriesReducer(initialState, action)).toEqual({
+      isLoaded: true,
+      topStories: [],
+      error: "An error"
+    });
+  });
+
 });
